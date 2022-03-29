@@ -74,7 +74,7 @@ export const Counter: React.FC<CountPropsType> = ({
                 version === 1.2 &&
                 <>
                     <div className={s.wrapper}>
-                        {turnOn
+                        {turnOn || restProps.error
                             ? <>
                                 <div className={s.display}>
                                     <SettingsDisplay
