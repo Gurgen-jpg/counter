@@ -1,0 +1,88 @@
+p {
+    font-size: 30px;
+}
+.wrapper {
+    width: 200px;
+    height: 200px;
+    border: 2px solid green;
+
+
+    display: flex;
+
+    align-items: center;
+    flex-direction: column;
+    background: #FF9; /* Фоновый цвет блока */
+    border:4px solid #777; /* Ширина вид и цвет рамки */
+
+
+    box-shadow: 0 0 10px 2px #1A3457;
+
+}
+
+.max {
+    color: red;
+}
+.btn {display: block;}
+
+.notMax {
+    color: green;
+}
+
+.plusBotton {
+    background-color: #4CAF50;
+    color: white;
+    margin: 5px 5px 5px 5px;
+    border-radius: 4px;
+}
+.plusBottonDead {
+    margin: 5px 5px 5px 5px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.plusBotton:hover {
+    margin: 5px 5px 5px 5px;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    -webkit-transition-duration: 0.4s;
+}
+
+.resetButton {
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+}
+
+.resetButtonDead {
+    background-color: #f44336;
+    color: white;
+    border-radius: 4px;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.resetButton:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #f44336;
+    -webkit-transition-duration: 0.4s;
+}
+.errorDisplay {
+margin: auto;
+    width: 200px;
+    height: 145px;
+    background-color: red;
+    text-align: center;
+
+}
+.display {
+    width: 200px;
+    height: 145px;
+    text-align: center;
+
+
+}
