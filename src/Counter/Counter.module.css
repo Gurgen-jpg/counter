@@ -2,6 +2,7 @@ p {
     font-size: 30px;
 }
 .wrapper {
+    margin-top: 5px;
     width: 200px;
     height: 200px;
     border: 2px solid green;
