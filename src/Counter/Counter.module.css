@@ -73,8 +73,6 @@ p {
 }
 .errorDisplay {
 margin: auto;
-    width: 200px;
-    height: 145px;
     background-color: red;
     text-align: center;
 

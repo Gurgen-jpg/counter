@@ -16,7 +16,7 @@ type CountPropsType = {
     setButton: () => void
     error: boolean
 }
-type VersionType = 1.0 | 1.2;
+export type VersionType = 1.0 | 1.2;
 export const Counter: React.FC<CountPropsType> = ({
                                                       counter, callback, callbackReset,
                                                       maxValue, startValue, ...restProps
@@ -41,6 +41,7 @@ export const Counter: React.FC<CountPropsType> = ({
                             <Display counter={counter}
                                      maxValue={maxValue}
                                      error={restProps.error}
+                                     version={version}
                             />
                         </div>
                         <Button title={'addCount'}
@@ -51,7 +52,7 @@ export const Counter: React.FC<CountPropsType> = ({
                         <Button title={'reset'}
                                 callback={callbackReset}
                                 disabled={(counter === startValue ? true : false) || (restProps.error)}
-                                className={(counter === startValue || (restProps.error)) ? s.resetButtonDead : s.resetButton}
+                                className={((counter === startValue || restProps.error)) ? s.resetButtonDead : s.resetButton}
                         />
                     </div>
                     <div className={s.wrapper}>
@@ -88,6 +89,7 @@ export const Counter: React.FC<CountPropsType> = ({
                             : <Display counter={counter}
                                        maxValue={maxValue}
                                        error={restProps.error}
+                                       version={version}
                             />
                         }
                         {!turnOn &&
