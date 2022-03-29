@@ -83,6 +83,7 @@ margin: auto;
     width: 200px;
     height: 145px;
     text-align: center;
-
-
+}
+.errorSpan {
+    background-color: red;
 }

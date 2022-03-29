@@ -5,11 +5,14 @@ type ButtonTypeProps = {
     callback: () => void
     disabled?: boolean
     className?:string
+    turnOnnSetting?:(on:boolean) => void
+    tunedOn?:boolean
 }
 
 export const Button: React.FC<ButtonTypeProps> = ({title, callback, ...restProps}) => {
     const onclickButtonHandler = () => {
-        callback()
+        restProps.turnOnnSetting && restProps.turnOnnSetting(!restProps.tunedOn);
+        callback();
     }
     return (
         <button

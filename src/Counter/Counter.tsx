@@ -16,44 +16,105 @@ type CountPropsType = {
     setButton: () => void
     error: boolean
 }
-
+type VersionType = 1.0 | 1.2;
 export const Counter: React.FC<CountPropsType> = ({
                                                       counter, callback, callbackReset,
                                                       maxValue, startValue, ...restProps
                                                   }) => {
 
-
-
+    const [version, setVersion] = useState<VersionType>(1.0)
+    const [turnOn, setTurnOn] = useState<boolean>(false)
+    const versionHandler = () => {
+        if (version === 1.0) {
+            return setVersion(1.2)
+        } else return setVersion(1.0)
+    }
 
     return (
         <div>
-            <div className={s.wrapper}>
-                <div className={s.display}><Display counter={counter} maxValue={maxValue} error={restProps.error}/></div>
-                <Button title={'addCount'}
-                        callback={callback}
-                        disabled={(counter >= maxValue ? true : false) || (restProps.error)}
-                        className={(counter >= maxValue || (restProps.error)) ? s.plusBottonDead : s.plusBotton}
-                />
-                <Button title={'reset'}
-                        callback={callbackReset}
-                        disabled={(counter === startValue ? true : false) || (restProps.error)}
-                        className={(counter === startValue || (restProps.error)) ? s.resetButtonDead : s.resetButton}
-                />
-            </div>
-            <div className={s.wrapper}>
-                <div className={s.display}><SettingsDisplay
-                    maxValue={maxValue}
-                    startValue={startValue}
-                    setMaxValue={restProps.setMaxValue}
-                    setStartValue={restProps.setStartValue}
-                /></div>
-                <Button title={'Set value'}
-                        callback={restProps.setButton}
-                        disabled={restProps.error}
-                        className={(restProps.error) ? s.plusBottonDead : s.plusBotton}
+            <button onClick={versionHandler}>Counter version {version}</button>
+            {
+                version === 1.0 &&
+                <>
+                    <div className={s.wrapper}>
+                        <div className={s.display}>
+                            <Display counter={counter}
+                                     maxValue={maxValue}
+                                     error={restProps.error}
+                            />
+                        </div>
+                        <Button title={'addCount'}
+                                callback={callback}
+                                disabled={(counter >= maxValue ? true : false) || (restProps.error)}
+                                className={(counter >= maxValue || (restProps.error)) ? s.plusBottonDead : s.plusBotton}
+                        />
+                        <Button title={'reset'}
+                                callback={callbackReset}
+                                disabled={(counter === startValue ? true : false) || (restProps.error)}
+                                className={(counter === startValue || (restProps.error)) ? s.resetButtonDead : s.resetButton}
+                        />
+                    </div>
+                    <div className={s.wrapper}>
+                        <div className={s.display}><SettingsDisplay
+                            maxValue={maxValue}
+                            startValue={startValue}
+                            setMaxValue={restProps.setMaxValue}
+                            setStartValue={restProps.setStartValue}
+                        /></div>
+                        <Button title={'Set value'}
+                                callback={restProps.setButton}
+                                disabled={restProps.error}
+                                className={(restProps.error) ? s.plusBottonDead : s.plusBotton}
+                        />
+                    </div>
+                </>
+            }
+            {
+                version === 1.2 &&
+                <>
+                    <div className={s.wrapper}>
+                        {turnOn
+                            ? <>
+                                <div className={s.display}>
+                                    <SettingsDisplay
+                                        maxValue={maxValue}
+                                        startValue={startValue}
+                                        setMaxValue={restProps.setMaxValue}
+                                        setStartValue={restProps.setStartValue}
+                                    />
+                                </div>
+                                {restProps.error && <span className={s.errorSpan}>WRONG VALUE</span>}
+                            </>
+                            : <Display counter={counter}
+                                       maxValue={maxValue}
+                                       error={restProps.error}
+                            />
+                        }
+                        {!turnOn &&
+                            <><Button title={'addCount'}
+                                      callback={callback}
+                                      disabled={(counter >= maxValue ? true : false) || (restProps.error)}
+                                      className={(counter >= maxValue || (restProps.error)) ? s.plusBottonDead : s.plusBotton}
+                            />
+                                <Button title={'reset'}
+                                        callback={callbackReset}
+                                        disabled={(counter === startValue ? true : false) || (restProps.error)}
+                                        className={(counter === startValue || (restProps.error)) ? s.resetButtonDead : s.resetButton}
+                                /></>
+                        }
+                        <Button title={'Set value'}
+                                callback={restProps.setButton}
+                                turnOnnSetting={setTurnOn}
+                                tunedOn={turnOn}
+                                disabled={restProps.error}
+                                className={(restProps.error) ? s.plusBottonDead : s.plusBotton}
+                        />
 
-                />
-            </div>
+
+                    </div>
+                </>
+
+            }
         </div>
     );
 };
