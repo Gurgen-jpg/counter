@@ -1,5 +1,6 @@
 import {combineReducers, createStore} from "redux";
 import {counterReducer} from "./counterReducer";
+import {loadState, saveState} from "../Storage/LocalstorageUtils";
 
 
 const rootReducer = combineReducers(
@@ -10,20 +11,15 @@ const rootReducer = combineReducers(
 
 
 
-//Работа с LocalStorage
-let preloadState;
-const checkPreloadState = localStorage.getItem('appState')
-if (checkPreloadState) {
-    preloadState = JSON.parse(checkPreloadState)
-}
 
-
-export const store = createStore(rootReducer, preloadState)
+export const store = createStore(rootReducer, loadState())
 
 //подписка на изменения стейта
-store.subscribe(() => {
-    localStorage.setItem('appState', JSON.stringify(store.getState()))
-})
+// store.subscribe(() => {
+//     saveState({
+//         counter: store.getState().counter
+//     })
+// })
 
 
 

@@ -1,28 +1,31 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from "./Counter.module.css";
+import {useDispatch} from "react-redux";
+import {setMaxAC, setStartAC, setValueAC} from "./redux/counterReducer";
 
 type PropsType = {
     maxValue: number
     startValue: number
     incValue: () => void
-    setStart: (e: string) => void
-    setMax: (e: string) => void
     reset: () => void
     value: number
 }
 
 export const CounterWithRedux = ({
-                                     incValue, setStart, setMax, reset,
+                                     incValue, reset,
                                      startValue, maxValue, value
                                  }: PropsType) => {
 
-    console.log('Counter')
+    let dispatch = useDispatch()
+
+
     const onChangeMaxHandle = (e: ChangeEvent<HTMLInputElement>) => {
-        setMax(e.currentTarget.value)
+        dispatch(setMaxAC( Number(e.currentTarget.value)))
     }
     const onChangeStartHandle = (e: ChangeEvent<HTMLInputElement>) => {
-        setStart(e.currentTarget.value)
+        dispatch(setStartAC(Number(e.currentTarget.value)))
     }
+    const onClickSetValue = () => dispatch(setValueAC(startValue, maxValue))
 
     let err;
     (maxValue < 1) || (maxValue <= startValue) || (startValue < 0) ? err = true : err = false
@@ -39,6 +42,7 @@ export const CounterWithRedux = ({
             <button onClick={reset}
                     className={s.resetButton}>reset
             </button>
+            <button onClick={onClickSetValue}>set</button>
         </div>
     );
 };

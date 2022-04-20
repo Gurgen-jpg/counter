@@ -1,12 +1,11 @@
 export const InitialState = {
     currValue: 0,
-    maxValue: 1,
-    startValue: 0,
-    error: false,
-
+    settings : {
+        startValue: 0,
+        maxValue: 1,
+    }
 }
 export type InitialStateType = typeof InitialState
-
 
 export const counterReducer = (state: InitialStateType = InitialState, action: ActionType): InitialStateType => {
     switch (action.type) {
@@ -15,50 +14,58 @@ export const counterReducer = (state: InitialStateType = InitialState, action: A
                 ...state, currValue: state.currValue + 1
             }
         }
-        case "SET-START-VALUE": {
+
+        case "SET-VALUE": {
             return {
-                ...state, startValue: action.newStartValue
+                ...state, settings: {...action.settings}
             }
         }
         case "SET-MAX-VALUE": {
             return {
-                ...state, maxValue: action.newMaxValue
+                ...state, settings: {...state.settings, maxValue: action.maxValue}
+            }
+        }
+        case "SET-START-VALUE": {
+            return {
+                ...state, settings: {...state.settings, startValue: action.startValue}
             }
         }
         case "RESET-VALUE": {
             return {
-                ...state, currValue: state.startValue
+                ...state, currValue: state.settings.startValue
             }
-        }
-        case "SET-ERROR": {
-            return {...state, error: action.errorValue}
         }
         default:
             return state
     }
 }
 
-
 export const incValueAC = () => ({type: 'INC-VALUE'} as const)
-export const setStartAC = (newStartValue: number) => ({
-    type: 'SET-START-VALUE',
-    newStartValue
-} as const)
-export const setMaxAC = (newMaxValue: number) => ({
-    type: 'SET-MAX-VALUE',
-    newMaxValue
-} as const)
 export const resetAC = () => ({
     type: 'RESET-VALUE',
 } as const)
-export const setErrorAC = (errorValue: boolean) => ({type: 'SET-ERROR', errorValue} as const)
+export const setValueAC = (startValue: number, maxValue:number) => ({
+  type: 'SET-VALUE',
+    settings: {
+        startValue,
+        maxValue,
+    }
+} as const)
+export const setStartAC = (startValue: number) => ({
+    type: 'SET-START-VALUE',
+    startValue
+}as const)
+export const setMaxAC = (maxValue: number) => ({
+    type: 'SET-MAX-VALUE',
+    maxValue
+}as const)
 
-
-export type incValueACType = ReturnType<typeof incValueAC>
 export type setStartACType = ReturnType<typeof setStartAC>
 export type setMaxACType = ReturnType<typeof setMaxAC>
+export type incValueACType = ReturnType<typeof incValueAC>
 export type resetACType = ReturnType<typeof resetAC>
-export type setErrorACType = ReturnType<typeof setErrorAC>
+export type setValueACType = ReturnType<typeof setValueAC>
 
 
-export type ActionType = incValueACType | setStartACType | setMaxACType | resetACType | setErrorACType
+
+export type ActionType = incValueACType | resetACType | setValueACType | setStartACType | setMaxACType

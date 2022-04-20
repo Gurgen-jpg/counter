@@ -5,8 +5,6 @@ type PropsType ={
     value:number
     maxValue: number
     startValue: number
-
-
 }
 export const DisplayWithRedux = ({value, maxValue, startValue}:PropsType) => {
     console.log('Display')
