@@ -14,8 +14,8 @@ export const AppWithRedux = () => {
     let dispatch = useDispatch();
 
     useEffect(() => {
-
-    }, [value])
+        localStorage.getItem('cu')
+    }, [])
 
 
 //Диспатчу редюсеры

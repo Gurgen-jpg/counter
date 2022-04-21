@@ -1,6 +1,14 @@
+import {saveSettings, saveState} from "../Storage/LocalstorageUtils";
+
+
+export type SettingsType = {
+    startValue: number,
+    maxValue: number,
+}
+
 export const InitialState = {
     currValue: 0,
-    settings : {
+    settings:{
         startValue: 0,
         maxValue: 1,
     }
@@ -14,10 +22,9 @@ export const counterReducer = (state: InitialStateType = InitialState, action: A
                 ...state, currValue: state.currValue + 1
             }
         }
-
         case "SET-VALUE": {
             return {
-                ...state, settings: {...action.settings}
+                ...state, currValue: action.settings.startValue
             }
         }
         case "SET-MAX-VALUE": {
@@ -44,28 +51,26 @@ export const incValueAC = () => ({type: 'INC-VALUE'} as const)
 export const resetAC = () => ({
     type: 'RESET-VALUE',
 } as const)
-export const setValueAC = (startValue: number, maxValue:number) => ({
-  type: 'SET-VALUE',
+export const setValueAC = (startValue: number) => ({
+    type: 'SET-VALUE',
     settings: {
         startValue,
-        maxValue,
     }
 } as const)
 export const setStartAC = (startValue: number) => ({
     type: 'SET-START-VALUE',
     startValue
-}as const)
+} as const)
 export const setMaxAC = (maxValue: number) => ({
     type: 'SET-MAX-VALUE',
     maxValue
-}as const)
+} as const)
 
 export type setStartACType = ReturnType<typeof setStartAC>
 export type setMaxACType = ReturnType<typeof setMaxAC>
 export type incValueACType = ReturnType<typeof incValueAC>
 export type resetACType = ReturnType<typeof resetAC>
 export type setValueACType = ReturnType<typeof setValueAC>
-
 
 
 export type ActionType = incValueACType | resetACType | setValueACType | setStartACType | setMaxACType

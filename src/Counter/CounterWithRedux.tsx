@@ -1,7 +1,9 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from "./Counter.module.css";
-import {useDispatch} from "react-redux";
-import {setMaxAC, setStartAC, setValueAC} from "./redux/counterReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {InitialStateType, setMaxAC, setStartAC, setValueAC} from "./redux/counterReducer";
+import {saveState} from "./Storage/LocalstorageUtils";
+import {AppStateType} from "./redux/store";
 
 type PropsType = {
     maxValue: number
@@ -17,6 +19,7 @@ export const CounterWithRedux = ({
                                  }: PropsType) => {
 
     let dispatch = useDispatch()
+    const savedState = useSelector<AppStateType, InitialStateType>(state => state.counter)
 
 
     const onChangeMaxHandle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +28,10 @@ export const CounterWithRedux = ({
     const onChangeStartHandle = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setStartAC(Number(e.currentTarget.value)))
     }
-    const onClickSetValue = () => dispatch(setValueAC(startValue, maxValue))
+    const onClickSetValue = () => dispatch(setValueAC(startValue))
+
+
+
 
     let err;
     (maxValue < 1) || (maxValue <= startValue) || (startValue < 0) ? err = true : err = false
@@ -42,7 +48,8 @@ export const CounterWithRedux = ({
             <button onClick={reset}
                     className={s.resetButton}>reset
             </button>
-            <button onClick={onClickSetValue}>set</button>
+            <button onClick={onClickSetValue} disabled={(startValue < 0) || (startValue === maxValue) || (startValue > maxValue)}
+                    className={err || value === maxValue ? s.plusBottonDead : s.plusBotton}>set</button>
         </div>
     );
 };
